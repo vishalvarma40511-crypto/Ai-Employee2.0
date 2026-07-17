@@ -1,0 +1,458 @@
+{
+  "customers": [
+    {
+      "_id": "c-default-1",
+      "name": "Vishal",
+      "email": "vishal@gmail.com",
+      "password": "password123",
+      "phone": "+91 98765 43210",
+      "address": "Sector 62, Noida, UP, India",
+      "rewardsPoints": 250,
+      "wishlist": []
+    },
+    {
+      "_id": "c-1784310980471",
+      "name": "T VISHAL VARMA",
+      "email": "vishalvarma40511@gmail.com",
+      "password": "owner123",
+      "phone": "owner@businessos.ai",
+      "address": "Ramalingeswara Nagar,Tagore road ending, Vijayawada, Andhra Pradesh 520013",
+      "rewardsPoints": 250,
+      "wishlist": []
+    }
+  ],
+  "products": [
+    {
+      "_id": "p-default-1",
+      "name": "Wireless Earbuds X1",
+      "category": "Electronics",
+      "stock": 44,
+      "minStock": 8,
+      "price": 2499,
+      "cost": 1100,
+      "sku": "SKU-ELECT-E12",
+      "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.8,
+      "salesCount": 1
+    },
+    {
+      "_id": "p-default-2",
+      "name": "Classic Running Shoes",
+      "category": "Apparel",
+      "stock": 11,
+      "minStock": 5,
+      "price": 3999,
+      "cost": 1600,
+      "sku": "SKU-APP-SH04",
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.6,
+      "salesCount": 1
+    },
+    {
+      "_id": "p-default-3",
+      "name": "Organic Green Tea Bag Pack",
+      "category": "Groceries",
+      "stock": 148,
+      "minStock": 20,
+      "price": 299,
+      "cost": 100,
+      "sku": "SKU-GROC-GT55",
+      "image": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.5,
+      "salesCount": 2
+    },
+    {
+      "_id": "p-default-4",
+      "name": "Paracetamol 650mg Sterile Pack",
+      "category": "Medical",
+      "stock": 80,
+      "minStock": 15,
+      "price": 49,
+      "cost": 12,
+      "sku": "SKU-MED-P098",
+      "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.7
+    }
+  ],
+  "orders": [
+    {
+      "_id": "o-1784311507066",
+      "orderNumber": "INV-2026-5384",
+      "customerName": "T VISHAL VARMA",
+      "phone": "+916281823558",
+      "email": "vishalvarma40511@gmail.com",
+      "products": [
+        {
+          "productName": "yyyyy",
+          "quantity": 1,
+          "price": 678
+        }
+      ],
+      "total": 795.04,
+      "paymentMethod": "Cash",
+      "shippingStatus": "delivered",
+      "courier": "In-Store Pickup",
+      "trackingId": "N/A",
+      "timestamp": "2026-07-17T18:05:07.066Z"
+    },
+    {
+      "_id": "o-1784311472989",
+      "orderNumber": "INV-2026-4890",
+      "customerName": "rite",
+      "phone": "+916281823558",
+      "email": "vishalvarma40511@gmail.com",
+      "products": [
+        {
+          "productName": "rrrrrr",
+          "quantity": 1,
+          "price": 5678
+        }
+      ],
+      "total": 6690.04,
+      "paymentMethod": "Cash",
+      "shippingStatus": "delivered",
+      "courier": "In-Store Pickup",
+      "trackingId": "N/A",
+      "timestamp": "2026-07-17T18:04:32.989Z"
+    },
+    {
+      "_id": "o-1784311368287",
+      "orderNumber": "INV-2026-9981",
+      "customerName": "T VISHAL VARMA",
+      "phone": "+916281823558",
+      "email": "vishalvarma40511@gmail.com",
+      "products": [
+        {
+          "productName": "ert",
+          "quantity": 1,
+          "price": 34567
+        }
+      ],
+      "total": 40733.06,
+      "paymentMethod": "Cash",
+      "shippingStatus": "delivered",
+      "courier": "In-Store Pickup",
+      "trackingId": "N/A",
+      "timestamp": "2026-07-17T18:02:48.287Z"
+    },
+    {
+      "_id": "o-1784311317094",
+      "orderNumber": "INV-2026-1155",
+      "customerName": "T VISHAL VARMA",
+      "phone": "+916281823558",
+      "email": "vishalvarma40511@gmail.com",
+      "products": [
+        {
+          "productName": "uuu6789",
+          "quantity": 1,
+          "price": 45678
+        }
+      ],
+      "total": 53900.04,
+      "paymentMethod": "Cash",
+      "shippingStatus": "delivered",
+      "courier": "In-Store Pickup",
+      "trackingId": "N/A",
+      "timestamp": "2026-07-17T18:01:57.094Z"
+    },
+    {
+      "_id": "o-1784311005658",
+      "orderNumber": "ORD-48464",
+      "customerName": "T VISHAL VARMA",
+      "phone": "owner@businessos.ai",
+      "email": "vishalvarma40511@gmail.com",
+      "address": "Ramalingeswara Nagar,Tagore road ending, Vijayawada, Andhra Pradesh 520013",
+      "products": [
+        {
+          "productName": "Organic Green Tea Bag Pack",
+          "quantity": 1,
+          "price": 299
+        },
+        {
+          "productName": "Wireless Earbuds X1",
+          "quantity": 1,
+          "price": 2499
+        }
+      ],
+      "total": 2798,
+      "paymentMethod": "WhatsApp Order",
+      "shippingStatus": "placed",
+      "courier": "Blue Dart",
+      "trackingId": "BD-9829539",
+      "deliveryPerson": "Cargo Drone #098",
+      "timestamp": "2026-07-17T17:56:45.658Z"
+    },
+    {
+      "_id": "o-1784310758626",
+      "orderNumber": "INV-2026-4153",
+      "customerName": "T VISHAL VARMA",
+      "phone": "+916281823558",
+      "email": "vishalvarma40511@gmail.com",
+      "products": [
+        {
+          "productName": "Classic Running Shoes",
+          "quantity": 1,
+          "price": 3999
+        },
+        {
+          "productName": "Organic Green Tea Bag Pack",
+          "quantity": 1,
+          "price": 299
+        }
+      ],
+      "total": 5071.64,
+      "paymentMethod": "Cash Register",
+      "shippingStatus": "delivered",
+      "courier": "In-Store Pickup",
+      "trackingId": "N/A",
+      "timestamp": "2026-07-17T17:52:38.626Z"
+    }
+  ],
+  "smslogs": [
+    {
+      "_id": "l-1784311507082",
+      "recipient": "+916281823558",
+      "message": "Thank you for shopping at AI Employee Store. Invoice: INV-2026-5384. Amount: ₹795. Items: 1x yyyyy. Visit Again!",
+      "status": "Simulator",
+      "details": "Gateway error: Cannot find package 'node-fetch' imported from C:\\Users\\Vishal\\Downloads\\newproject-main1\\server\\routes\\api.js",
+      "timestamp": "2026-07-17T18:05:07.082Z"
+    },
+    {
+      "_id": "l-1784311473017",
+      "recipient": "+916281823558",
+      "message": "Thank you for shopping at AI Employee Store. Invoice: INV-2026-4890. Amount: ₹6690. Items: 1x rrrrrr. Visit Again!",
+      "status": "Simulator",
+      "details": "Gateway error: Cannot find package 'node-fetch' imported from C:\\Users\\Vishal\\Downloads\\newproject-main1\\server\\routes\\api.js",
+      "timestamp": "2026-07-17T18:04:33.017Z"
+    },
+    {
+      "_id": "l-1784311368302",
+      "recipient": "+916281823558",
+      "message": "Thank you for shopping at AI Employee Store. Invoice: INV-2026-9981. Amount: ₹40733. Items: 1x ert. Visit Again!",
+      "status": "Simulator",
+      "details": "Gateway error: Cannot find package 'node-fetch' imported from C:\\Users\\Vishal\\Downloads\\newproject-main1\\server\\routes\\api.js",
+      "timestamp": "2026-07-17T18:02:48.302Z"
+    },
+    {
+      "_id": "l-1784311317113",
+      "recipient": "+916281823558",
+      "message": "Thank you for shopping at AI Employee Store. Invoice: INV-2026-1155. Amount: ₹53900. Items: 1x uuu6789. Visit Again!",
+      "status": "Simulator",
+      "details": "Gateway error: Cannot find package 'node-fetch' imported from C:\\Users\\Vishal\\Downloads\\newproject-main1\\server\\routes\\api.js",
+      "timestamp": "2026-07-17T18:01:57.113Z"
+    },
+    {
+      "_id": "l-1784311005678",
+      "recipient": "+",
+      "message": "AI Employee: Hello T VISHAL VARMA, your order ORD-48464 has been placed successfully. Items: {{items}} - Total: ₹2798. Estimated Delivery: Tomorrow before 8 PM. Track your order: http://localhost:5173/track/ORD-48464",
+      "status": "Simulator",
+      "details": "Gateway error: Cannot find package 'node-fetch' imported from C:\\Users\\Vishal\\Downloads\\newproject-main1\\server\\routes\\api.js",
+      "timestamp": "2026-07-17T17:56:45.678Z"
+    },
+    {
+      "_id": "l-1784310758653",
+      "recipient": "+916281823558",
+      "message": "Thank you for shopping at AI Employee Store. Invoice: INV-2026-4153. Amount: ₹5072. Items: 1x Classic Running Shoes, 1x Organic Green Tea Bag Pack. Visit Again!",
+      "status": "Simulator",
+      "details": "Gateway error: Cannot find package 'node-fetch' imported from C:\\Users\\Vishal\\Downloads\\newproject-main1\\server\\routes\\api.js",
+      "timestamp": "2026-07-17T17:52:38.653Z"
+    }
+  ],
+  "smstemplates": [
+    {
+      "category": "order_placed",
+      "templateText": "AI Employee: Hello {{customer}}, your order {{order}} has been placed successfully. Items: {{items}} - Total: ₹{{amount}}. Estimated Delivery: {{delivery}}. Track your order: {{tracking}}"
+    },
+    {
+      "category": "order_shipped",
+      "templateText": "Your order {{order}} has been shipped via Blue Dart. Courier: Blue Dart. Tracking ID: {{tracking}}"
+    },
+    {
+      "category": "out_for_delivery",
+      "templateText": "Good News! Your order {{order}} is Out For Delivery today. Expected today before 8 PM. Track: {{tracking}}"
+    },
+    {
+      "category": "order_delivered",
+      "templateText": "Your order {{order}} has been delivered successfully. Thank you for shopping with Quantum Stores. Please rate your review experience: {{tracking}}"
+    },
+    {
+      "category": "offline_billing",
+      "templateText": "Thank you for shopping at AI Employee Store. Invoice: {{order}}. Amount: ₹{{amount}}. Items: {{items}}. Visit Again!"
+    }
+  ],
+  "settings": {
+    "key": "store",
+    "ownerEmail": "riteesh.8.new@gmail.com",
+    "storeName": "Alfa Store",
+    "storePhone": "",
+    "storeAddress": "",
+    "websiteUrl": "https://newproject-main1.vercel.app",
+    "updatedAt": "2026-07-17T17:51:53.396Z",
+    "ownerEmailPass": "sdox cbow sqsr jmaz"
+  },
+  "invoiceCounter": {
+    "2026": 6
+  },
+  "invoices": [
+    {
+      "_id": "i-1784311507088-318",
+      "invoiceNumber": "INV-2026-000006",
+      "customerName": "T VISHAL VARMA",
+      "email": "vishalvarma40511@gmail.com",
+      "phone": "+916281823558",
+      "orderId": "INV-2026-5384",
+      "products": [
+        {
+          "productName": "yyyyy",
+          "quantity": 1,
+          "price": 678
+        }
+      ],
+      "subtotal": 678,
+      "gst": 122.03999999999999,
+      "discount": 0,
+      "total": 795.04,
+      "paymentMethod": "Cash",
+      "paymentStatus": "Paid",
+      "pdfPath": "/uploads/pdf/invoice-INV-2026-000006.pdf",
+      "emailStatus": "Success",
+      "createdAt": "2026-07-17T18:05:07.088Z",
+      "updatedAt": "2026-07-17T18:05:07.088Z"
+    },
+    {
+      "_id": "i-1784311473030-900",
+      "invoiceNumber": "INV-2026-000005",
+      "customerName": "rite",
+      "email": "vishalvarma40511@gmail.com",
+      "phone": "+916281823558",
+      "orderId": "INV-2026-4890",
+      "products": [
+        {
+          "productName": "rrrrrr",
+          "quantity": 1,
+          "price": 5678
+        }
+      ],
+      "subtotal": 5678,
+      "gst": 1022.04,
+      "discount": 0,
+      "total": 6690.04,
+      "paymentMethod": "Cash",
+      "paymentStatus": "Paid",
+      "pdfPath": "/uploads/pdf/invoice-INV-2026-000005.pdf",
+      "emailStatus": "Success",
+      "createdAt": "2026-07-17T18:04:33.030Z",
+      "updatedAt": "2026-07-17T18:04:33.030Z"
+    },
+    {
+      "_id": "i-1784311368317-620",
+      "invoiceNumber": "INV-2026-000004",
+      "customerName": "T VISHAL VARMA",
+      "email": "vishalvarma40511@gmail.com",
+      "phone": "+916281823558",
+      "orderId": "INV-2026-9981",
+      "products": [
+        {
+          "productName": "ert",
+          "quantity": 1,
+          "price": 34567
+        }
+      ],
+      "subtotal": 34567,
+      "gst": 6222.0599999999995,
+      "discount": 0,
+      "total": 40733.06,
+      "paymentMethod": "Cash",
+      "paymentStatus": "Paid",
+      "pdfPath": "/uploads/pdf/invoice-INV-2026-000004.pdf",
+      "emailStatus": "Success",
+      "createdAt": "2026-07-17T18:02:48.317Z",
+      "updatedAt": "2026-07-17T18:02:48.317Z"
+    },
+    {
+      "_id": "i-1784311317131-367",
+      "invoiceNumber": "INV-2026-000003",
+      "customerName": "T VISHAL VARMA",
+      "email": "vishalvarma40511@gmail.com",
+      "phone": "+916281823558",
+      "orderId": "INV-2026-1155",
+      "products": [
+        {
+          "productName": "uuu6789",
+          "quantity": 1,
+          "price": 45678
+        }
+      ],
+      "subtotal": 45678,
+      "gst": 8222.039999999999,
+      "discount": 0,
+      "total": 53900.04,
+      "paymentMethod": "Cash",
+      "paymentStatus": "Paid",
+      "pdfPath": "/uploads/pdf/invoice-INV-2026-000003.pdf",
+      "emailStatus": "Success",
+      "createdAt": "2026-07-17T18:01:57.131Z",
+      "updatedAt": "2026-07-17T18:01:57.131Z"
+    },
+    {
+      "_id": "i-1784311005692-105",
+      "invoiceNumber": "INV-2026-000002",
+      "customerName": "T VISHAL VARMA",
+      "email": "vishalvarma40511@gmail.com",
+      "phone": "owner@businessos.ai",
+      "orderId": "ORD-48464",
+      "products": [
+        {
+          "productName": "Organic Green Tea Bag Pack",
+          "quantity": 1,
+          "price": 299
+        },
+        {
+          "productName": "Wireless Earbuds X1",
+          "quantity": 1,
+          "price": 2499
+        }
+      ],
+      "subtotal": 2798,
+      "gst": 503.64,
+      "discount": 0,
+      "total": 2798,
+      "paymentMethod": "WhatsApp Order",
+      "paymentStatus": "Paid",
+      "pdfPath": "/uploads/pdf/invoice-INV-2026-000002.pdf",
+      "emailStatus": "Success",
+      "createdAt": "2026-07-17T17:56:45.692Z",
+      "updatedAt": "2026-07-17T17:56:45.692Z"
+    },
+    {
+      "_id": "i-1784310758664-989",
+      "invoiceNumber": "INV-2026-000001",
+      "customerName": "T VISHAL VARMA",
+      "email": "vishalvarma40511@gmail.com",
+      "phone": "+916281823558",
+      "orderId": "INV-2026-4153",
+      "products": [
+        {
+          "productName": "Classic Running Shoes",
+          "quantity": 1,
+          "price": 3999
+        },
+        {
+          "productName": "Organic Green Tea Bag Pack",
+          "quantity": 1,
+          "price": 299
+        }
+      ],
+      "subtotal": 4298,
+      "gst": 773.64,
+      "discount": 0,
+      "total": 5071.64,
+      "paymentMethod": "Cash Register",
+      "paymentStatus": "Paid",
+      "pdfPath": "/uploads/pdf/invoice-INV-2026-000001.pdf",
+      "emailStatus": "Success",
+      "createdAt": "2026-07-17T17:52:38.664Z",
+      "updatedAt": "2026-07-17T17:52:38.664Z"
+    }
+  ]
+}
