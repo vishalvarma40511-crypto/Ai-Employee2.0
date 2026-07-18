@@ -167,8 +167,13 @@ mongoose.connect(MONGODB_URI, { bufferCommands: false, serverSelectionTimeoutMS:
     console.log('📝  [System] Fallback database file: server/db_fallback.json');
     console.log('========================================================================\n');
   });
+// Export app for Vercel Serverless environment
+module.exports = app;
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`[Server] Backoffice server running securely on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  server.listen(PORT, () => {
+    console.log(`[Server] Backoffice server running securely on http://localhost:${PORT}`);
+  });
+}
+

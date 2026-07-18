@@ -8,14 +8,132 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 const { Customer, Product, Order, SMSLog, SMSTemplate, Settings } = require('../models/Schemas');
+const { isDbConnected } = require('../utils/db');
+
+// Middleware to await DB connection during cold starts in serverless functions
+router.use(async (req, res, next) => {
+  try {
+    await isDbConnected();
+  } catch (err) {
+    console.error('[DB Middleware] Connection await error:', err.message);
+  }
+  next();
+});
+
 const invoiceRouter = require('./invoices');
 router.use('/invoice', invoiceRouter);
 const { processAutomaticInvoicing } = require('../utils/invoiceProcessor');
 
 // ─── Fallback DB Helpers ────────────────────────────────────────────────────
-const FALLBACK_DB_PATH = path.join(__dirname, '../db_fallback.json');
+let FALLBACK_DB_PATH = path.join(__dirname, '../db_fallback.json');
+if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+  FALLBACK_DB_PATH = '/tmp/db_fallback.json';
+}
 
 function loadFallbackDb() {
+  const originalPath = path.join(__dirname, '../db_fallback.json');
+  
+  if ((process.env.VERCEL || process.env.NODE_ENV === 'production') && !fs.existsSync(FALLBACK_DB_PATH)) {
+    try {
+      let defaultData;
+      if (fs.existsSync(originalPath)) {
+        defaultData = fs.readFileSync(originalPath, 'utf8');
+      } else {
+        defaultData = JSON.stringify({
+          customers: [
+            {
+              _id: "c-default-1",
+              name: "Vishal",
+              email: "vishal@gmail.com",
+              password: "password123",
+              phone: "+91 98765 43210",
+              address: "Sector 62, Noida, UP, India",
+              rewardsPoints: 250,
+              wishlist: []
+            }
+          ],
+          products: [
+            {
+              _id: "p-default-1",
+              name: 'Wireless Earbuds X1',
+              category: 'Electronics',
+              stock: 45,
+              minStock: 8,
+              price: 2499,
+              cost: 1100,
+              sku: 'SKU-ELECT-E12',
+              image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=400&q=80',
+              rating: 4.8
+            },
+            {
+              _id: "p-default-2",
+              name: 'Classic Running Shoes',
+              category: 'Apparel',
+              stock: 12,
+              minStock: 5,
+              price: 3999,
+              cost: 1600,
+              sku: 'SKU-APP-SH04',
+              image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80',
+              rating: 4.6
+            },
+            {
+              _id: "p-default-3",
+              name: 'Organic Green Tea Bag Pack',
+              category: 'Groceries',
+              stock: 150,
+              minStock: 20,
+              price: 299,
+              cost: 100,
+              sku: 'SKU-GROC-GT55',
+              image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=400&q=80',
+              rating: 4.5
+            },
+            {
+              _id: "p-default-4",
+              name: 'Paracetamol 650mg Sterile Pack',
+              category: 'Medical',
+              stock: 80,
+              minStock: 15,
+              price: 49,
+              cost: 12,
+              sku: 'SKU-MED-P098',
+              image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80',
+              rating: 4.7
+            }
+          ],
+          orders: [],
+          smslogs: [],
+          smstemplates: [
+            {
+              category: 'order_placed',
+              templateText: 'AI Employee: Hello {{customer}}, your order {{order}} has been placed successfully. Items: {{items}} - Total: ₹{{amount}}. Estimated Delivery: {{delivery}}. Track your order: {{tracking}}'
+            },
+            {
+              category: 'order_shipped',
+              templateText: 'Your order {{order}} has been shipped via Blue Dart. Courier: Blue Dart. Tracking ID: {{tracking}}'
+            },
+            {
+              category: 'out_for_delivery',
+              templateText: 'Good News! Your order {{order}} is Out For Delivery today. Expected today before 8 PM. Track: {{tracking}}'
+            },
+            {
+              category: 'order_delivered',
+              templateText: 'Your order {{order}} has been delivered successfully. Thank you for shopping with Quantum Stores. Please rate your review experience: {{tracking}}'
+            },
+            {
+              category: 'offline_billing',
+              templateText: 'Thank you for shopping at AI Employee Store. Invoice: {{order}}. Amount: ₹{{amount}}. Items: {{items}}. Visit Again!'
+            }
+          ]
+        }, null, 2);
+      }
+      fs.writeFileSync(FALLBACK_DB_PATH, defaultData, 'utf8');
+    } catch (err) {
+      console.error('[Fallback DB api.js] Failed to write fallback database template to /tmp:', err.message);
+    }
+  }
+
   if (!fs.existsSync(FALLBACK_DB_PATH)) {
     const defaultData = {
       customers: [
@@ -105,19 +223,34 @@ function loadFallbackDb() {
         }
       ]
     };
-    fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(defaultData, null, 2), 'utf8');
+    try {
+      fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(defaultData, null, 2), 'utf8');
+    } catch (writeErr) {
+      console.error('[Fallback DB api.js] Critical failure writing inline template:', writeErr.message);
+    }
     return defaultData;
   }
+
   try {
     return JSON.parse(fs.readFileSync(FALLBACK_DB_PATH, 'utf8'));
-  } catch {
+  } catch (err) {
+    try {
+      if (fs.existsSync(originalPath)) {
+        return JSON.parse(fs.readFileSync(originalPath, 'utf8'));
+      }
+    } catch (inner) {}
     return {};
   }
 }
 
 function saveFallbackDb(data) {
-  fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    console.error('[Fallback DB api.js] Write failure:', err.message);
+  }
 }
+
 
 
 // ─── GET Email Settings ────────────────────────────────────────────────
@@ -195,8 +328,11 @@ router.post('/settings/email/test', async (req, res) => {
     let transporter;
     if (creds.host === 'smtp.gmail.com') {
       transporter = nodemailerLib.createTransport({
-        service: 'gmail',
-        auth: { user: creds.email, pass: creds.pass }
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: { user: creds.email, pass: creds.pass },
+        tls: { rejectUnauthorized: false }
       });
     } else {
       transporter = nodemailerLib.createTransport({
@@ -616,10 +752,15 @@ async function _sendInvoiceEmail(order) {
 
   if (emailPass) {
     transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
         user: emailUser,
         pass: emailPass
+      },
+      tls: {
+        rejectUnauthorized: false
       }
     });
   } else {

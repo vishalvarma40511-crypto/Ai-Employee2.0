@@ -6,21 +6,52 @@ const fs = require('fs');
 const path = require('path');
 
 // Fallback helper
-const FALLBACK_DB_PATH = path.join(__dirname, '../db_fallback.json');
+let FALLBACK_DB_PATH = path.join(__dirname, '../db_fallback.json');
+if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+  FALLBACK_DB_PATH = '/tmp/db_fallback.json';
+}
+
 function loadFallbackDb() {
+  const originalPath = path.join(__dirname, '../db_fallback.json');
+  
+  if ((process.env.VERCEL || process.env.NODE_ENV === 'production') && !fs.existsSync(FALLBACK_DB_PATH)) {
+    try {
+      if (fs.existsSync(originalPath)) {
+        fs.writeFileSync(FALLBACK_DB_PATH, fs.readFileSync(originalPath, 'utf8'), 'utf8');
+      }
+    } catch (err) {
+      console.error('[Fallback DB invoiceProcessor.js] Failed to initialize /tmp fallback:', err.message);
+    }
+  }
+
   if (fs.existsSync(FALLBACK_DB_PATH)) {
     try {
       return JSON.parse(fs.readFileSync(FALLBACK_DB_PATH, 'utf8'));
     } catch (e) {
+      try {
+        if (fs.existsSync(originalPath)) {
+          return JSON.parse(fs.readFileSync(originalPath, 'utf8'));
+        }
+      } catch (inner) {}
       return {};
     }
+  }
+  
+  if (fs.existsSync(originalPath)) {
+    try { return JSON.parse(fs.readFileSync(originalPath, 'utf8')); }
+    catch (e) { return {}; }
   }
   return {};
 }
 
 function saveFallbackDb(data) {
-  fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    console.error('[Fallback DB invoiceProcessor.js] Write failure:', err.message);
+  }
 }
+
 
 // Generate sequential Invoice number: INV-YYYY-000001
 async function getNextInvoiceNumber() {
@@ -79,7 +110,12 @@ async function processAutomaticInvoicing(order) {
       pdfBuffer = await generatePdfInvoiceBuffer(invoiceData);
       
       // Save locally to public/uploads/pdf/
-      const pdfDir = path.join(__dirname, '../public/uploads/pdf');
+      let pdfDir;
+      if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+        pdfDir = '/tmp/uploads/pdf';
+      } else {
+        pdfDir = path.join(__dirname, '../public/uploads/pdf');
+      }
       if (!fs.existsSync(pdfDir)) {
         fs.mkdirSync(pdfDir, { recursive: true });
       }

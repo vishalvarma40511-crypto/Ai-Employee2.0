@@ -6,21 +6,52 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 // Helper to load fallback local database
-const FALLBACK_DB_PATH = path.join(__dirname, '../db_fallback.json');
+let FALLBACK_DB_PATH = path.join(__dirname, '../db_fallback.json');
+if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+  FALLBACK_DB_PATH = '/tmp/db_fallback.json';
+}
+
 function loadFallbackDb() {
+  const originalPath = path.join(__dirname, '../db_fallback.json');
+  
+  if ((process.env.VERCEL || process.env.NODE_ENV === 'production') && !fs.existsSync(FALLBACK_DB_PATH)) {
+    try {
+      if (fs.existsSync(originalPath)) {
+        fs.writeFileSync(FALLBACK_DB_PATH, fs.readFileSync(originalPath, 'utf8'), 'utf8');
+      }
+    } catch (err) {
+      console.error('[Fallback DB invoiceController.js] Failed to initialize /tmp fallback:', err.message);
+    }
+  }
+
   if (fs.existsSync(FALLBACK_DB_PATH)) {
     try {
       return JSON.parse(fs.readFileSync(FALLBACK_DB_PATH, 'utf8'));
     } catch (e) {
+      try {
+        if (fs.existsSync(originalPath)) {
+          return JSON.parse(fs.readFileSync(originalPath, 'utf8'));
+        }
+      } catch (inner) {}
       return {};
     }
+  }
+  
+  if (fs.existsSync(originalPath)) {
+    try { return JSON.parse(fs.readFileSync(originalPath, 'utf8')); }
+    catch (e) { return {}; }
   }
   return {};
 }
 
 function saveFallbackDb(data) {
-  fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    console.error('[Fallback DB invoiceController.js] Write failure:', err.message);
+  }
 }
+
 
 // 1. GET ALL INVOICES WITH FILTERS
 const getInvoices = async (req, res) => {
