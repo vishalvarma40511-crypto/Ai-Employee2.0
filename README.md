@@ -1,5 +1,4 @@
 PROBLEM STATEMENT:
-Problem Statement
 
 Nowadays, many small and medium businesses manage their inventory, customer details, orders, billing, marketing, and employee information using multiple software applications or manual methods.
 
@@ -37,8 +36,11 @@ AI Employee - Smart AI-Powered Store Management System
 AI Employee is an intelligent AI-powered web application that helps shop owners automate day-to-day business operations while providing customers with a smart shopping experience. The platform combines Artificial Intelligence, automation, inventory management, billing, analytics, and customer support into one modern web application.
 
 🌐 Live Demo: https://ai-employee20.vercel.app/
+
 🎥 Demo Video: https://drive.google.com/file/d/1ypSMELmeE6JouZjSFxc9Eoa85GgxXGGx/view?usp=drivesdk
+
 📑 Presentation (PPT): https://gamma.app/docs/AI-Powered-Business-Management-b8fu59so5h348os
+
 💻 GitHub Repository: 
 
 🚀 Project Overview
